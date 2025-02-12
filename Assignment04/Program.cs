@@ -24,6 +24,37 @@ namespace Assignment04
             }
 
         }
+
+        class StringEqualityComparerDictionary : IEqualityComparer<string>
+        {
+            public new bool Equals(string? x, string? y)
+            {
+                //string? xString = x as string;
+                //string? yString = y as string;
+
+                return x.ToLower() == y.ToLower();
+            }
+
+            public int GetHashCode(string? other)
+            {
+                //  string ObjString = obj as string;
+                if (other is null)
+                {
+                    throw new ArgumentException("object is not string");
+                }
+                return other.ToLower().GetHashCode();
+            }
+
+        }
+
+        class StringDescComparer : IComparer<string>
+        {
+            public int Compare(string? x, string? y)
+            {
+                return y?.CompareTo(x) ?? (x is not null ? 0 : -1);
+            }
+
+        }
         static void Main(string[] args)
         {
             #region Hashtable NonGeneric
@@ -115,6 +146,124 @@ namespace Assignment04
             //Notes.Clear();
             #endregion
 
+
+            #endregion
+
+            #region Generic Dictionary
+            #region Intro
+            //KeyValuePair<string, int>[] keyValuePairs = new KeyValuePair<string, int>[3]
+            //{
+            //        new KeyValuePair<string, int>("Mohaed",50),
+            //        new KeyValuePair<string, int>("Hassan",50),
+            //        new KeyValuePair<string, int>("Mahmoud",50),
+
+            //};
+            //Dictionary<string, int> Note = new Dictionary<string, int>
+            //        {
+            //    { "Ahamed", 15 },
+            //    { "Mohamed", 16 },
+            //    { "Mostafa", 17 }
+            //};
+            //Dictionary<string, int> Note01 = new Dictionary<string, int>(Note, new StringEqualityComparerDictionary());
+
+            //foreach (var Person in Note.Values) Console.WriteLine($"{Person}");
+            //foreach (var Person in Note.Keys) Console.WriteLine($"{Person}");
+            //foreach (var Person in Note) Console.WriteLine($"{Person.Key} {Person.Value}");
+
+            //Dictionary<string, int> Notes02 = new Dictionary<string, int>(keyValuePairs);
+            //foreach (var Person in Notes02) Console.WriteLine($"{Person.Key} {Person.Value}");
+
+            #endregion
+
+            #region Method
+            #region Add
+            //  Dictionary<string, int> Note = new Dictionary<string, int>
+            //          {
+            //      { "Ahamed", 15 },
+            //      { "Mohamed", 16 },
+            //      { "Mostafa", 17 }
+            //  };
+            // // Note.Add("Ali", 560); // it is unsafe code
+            //  if (!Note.ContainsKey("Ali"))
+            //  {
+            //      Note.Add("Ali", 50);
+            //  }
+            //  foreach (var Person in Note) Console.WriteLine($"{Person.Key} {Person.Value}"); // ali was added
+
+            ////  OR Use Try Add
+            //   Note.TryAdd("Ali", 640);// it will return bool 
+
+            //  //Set
+            //  Console.WriteLine($"{Note["Ahmed"]}"); // if ahmed not found it throw exception (unsafe code)
+            #endregion
+
+            #region Get
+            //Dictionary<string, int> Note = new Dictionary<string, int>
+            //          {
+            //      { "Ahamed", 15 },
+            //      { "Mohamed", 16 },
+            //      { "Mostafa", 17 }
+            //  };
+            //if (Note.ContainsKey("Ahamed"))
+            //{
+            //    Console.WriteLine($"{Note["Ahamed"]}");
+            //}
+
+            //// Can use TryGet 
+            //Note.TryGetValue("mohamed", out int value); // return bool
+            //Console.WriteLine(value);
+            #endregion
+
+            #region Set
+            //Dictionary<string, int> Note = new Dictionary<string, int>
+            //          {
+            //      { "Ahamed", 15 },
+            //      { "Mohamed", 16 },
+            //      { "Mostafa", 17 }
+            //  };
+            //Note["Ahamed"] = 22;
+            //foreach (var Person in Note) Console.WriteLine($"{Person.Key} {Person.Value}");
+            //Note.Add("ahamed", 55); // then it will throw exception 
+            #endregion
+            #region Dictionary with Employee
+            //Employee employee01 = new Employee(10, "Ahmed", 550);
+            //Employee employee02 = new Employee(15, "Mohamed", 20);
+            //Employee employee03 = new Employee(16, "Mostafa", 30);
+            //Dictionary<Employee, string> employees = new Dictionary<Employee, string>
+            //{
+            //    [employee01] = "Employee With Id: 10, Name Ahmed , Salary 550",
+            //    [employee02] = "Employee With Id: 10, Name Mohamed, Salary 20",
+            //    [employee03] = "Employee With Id: 10, Name Mostafa , Salary 30",
+            //};
+
+            //foreach (var employee in employees) Console.WriteLine($"{employee.Key}");
+
+            //employees.Add(new Employee(10, "Ahmed", 550), string.Empty); // It Will Throw Exception
+            #endregion
+
+            #region SortedDictionary [Binary Search Tree]
+            //SortedDictionary<string, int> SortedNote = new SortedDictionary<string, int>(new StringDescComparer());
+            //SortedNote.Add("Ahmed", 888);
+            //SortedNote.Add("Mohamed", 777);
+            //SortedNote.Add("Mostafa", 444);
+            //foreach (var person in SortedNote) Console.WriteLine(person); // it will sorted by default
+            //// i want to reflect the oreder then make constructor to reflect icmparable 
+            #endregion
+
+
+            #region Example01
+           // sort it based on salary "Note it in database "
+            //SortedDictionary<Employee, string> SortedNote = new SortedDictionary<Employee, string>()
+            //{
+            //    { new Employee(10, "Ahmed", 550), "Employee With Id: 10, Name Ahmed, Salary 550" },
+            //    { new Employee(11, "Mohamed", 20), "Employee With Id: 11, Name Mohamed, Salary 20" },
+            //    { new Employee(12, "zahe", 5650), "Employee With Id: 12, Name Ahmedd, Salary 5650" }
+            //};
+
+            //foreach (var employee in SortedNote)
+            //    Console.WriteLine(employee.Key);
+            #endregion
+            #endregion
 
             #endregion
 
